@@ -108,6 +108,14 @@ nv.models.line = function() {
                 .classed('hover', function(d) { return d.hover })
                 .style('fill', function(d,i){ return color(d, i) })
                 .style('stroke', function(d,i){ return color(d, i)});
+            // add class to series
+            groups.each(function(data, index) {
+                var group = d3.select(this);
+                var groupClass = `${group.data()[0]["class"]}`;
+                if(groupClass)
+                    group.classed(`${groupClass}`,true);
+            });
+
             groups.watchTransition(renderWatch, 'line: groups')
                 .style('stroke-opacity', 1)
                 .style('fill-opacity', function(d) { return d.fillOpacity || .5});
